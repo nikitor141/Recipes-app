@@ -1,0 +1,53 @@
+//functions and mixins ------------------------------------
+
+@function HexToRGB($hex) {
+	@return red($hex), green($hex), blue($hex);
+}
+
+@function cl($name, $opacity: false) {
+	@if $opacity {
+		@return rgba(var(--color-#{unquote($name)}--rgb), $opacity);
+	} @else {
+		@return var(--color-#{unquote($name)});
+	}
+}
+
+@mixin themeToVars($theme) {
+	$theme: map-get($colors, $theme);
+	@each $key, $value in $theme {
+		--color-#{$key}: #{$value};
+		--color-#{$key}--rgb: #{HexToRGB($value)};
+	}
+}
+
+@function rem($pixels) {
+	@return calc($pixels / 10) + rem;
+}
+
+@mixin adaptive($device) {
+	@if $device == tabletReset {
+		@media (min-width: (1025px)) {
+			@content;
+		}
+	}
+	@if $device == tablet {
+		@media (max-width: (1024px)) {
+			@content;
+		}
+	}
+	@if $device == tabletOnly {
+		@media (max-width: (1024px)) and (min-width: (531px)) {
+			@content;
+		}
+	}
+	@if $device == mobileReset {
+		@media (min-width: (531px)) {
+			@content;
+		}
+	}
+	@if $device == mobile {
+		@media (max-width: (530px)) {
+			@content;
+		}
+	}
+}

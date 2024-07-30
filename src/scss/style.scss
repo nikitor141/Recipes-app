@@ -1,0 +1,335 @@
+@import 'fonts';
+@import 'reset';
+@import 'functions';
+@import 'colors';
+
+//	snippets -----------------------------------------------
+// fsc - fullscreen;
+// brg - burger;
+// brg-2 - burger animated;
+//---------------------------------------------------------
+
+//scss  ---------------------------------------------------
+//keyframes -----------------------------------------------
+
+//global ---------------------------------------------------
+img,
+svg,
+video {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	max-height: 100%;
+}
+
+html {
+	--refRes: 1920;
+	$ratio: 0.5;
+	scroll-behavior: smooth;
+	font-size: calc(100vw / var(--refRes) * 10);
+
+	@media (min-width: 1921px) {
+		font-size: calc(
+			10px + ($ratio * 10) * ((100vw - var(--refRes) * 1px) / var(--refRes))
+		);
+	}
+
+	@include adaptive(tablet) {
+		--refRes: 768;
+	}
+	@include adaptive(mobile) {
+		--refRes: 320;
+	}
+}
+
+body {
+	font-family: 'proximanova', sans-serif;
+	font-size: rem(14);
+	color: cl('text');
+
+	&.active {
+		overflow: hidden;
+	}
+}
+
+//anchors -------------------------------------------------
+
+// #foo,... {
+//    scroll-margin-top: var(--header-height);
+// }
+
+//js common blocks ----------------------------------------
+
+//flex wrapper---------------------------------------------
+
+.wrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	overflow-wrap: anywhere;
+}
+
+// common -------------------------------------------------
+
+.container {
+	width: 100%;
+	min-width: 320px;
+	max-width: rem(1430); //ширина контентной части
+	padding: 0 rem(15); // плюсуешь 2x padding к контентной части
+	margin: 0 auto;
+}
+
+//bem blocks ----------------------------------------------
+
+//header --------------------------------------------------
+
+//flex main -----------------------------------------------
+main {
+	flex-grow: 1;
+}
+.recipes {
+	display: flex;
+	align-items: center;
+	padding: rem(75) 0;
+	background-color: cl('background');
+
+	@include adaptive(tablet) {
+		padding: rem(50) 0;
+	}
+	@include adaptive(mobile) {
+		padding: rem(30) 0;
+	}
+
+	&__body {
+	}
+
+	&__list {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: rem(50);
+
+		@include adaptive(tablet) {
+			grid-template-columns: 1fr 1fr;
+			gap: rem(30);
+		}
+		@include adaptive(mobile) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	&__card {
+		display: flex;
+		flex-direction: column;
+		gap: rem(15);
+		padding: 0 rem(20) rem(20);
+		overflow: hidden;
+		background-color: cl('secondary');
+		border-radius: rem(20);
+		box-shadow: 0 0 rem(15) cl('primary', 0.2);
+		@include adaptive(mobile) {
+			gap: rem(12);
+		}
+	}
+
+	&__card-title {
+		font-size: rem(32);
+		font-weight: 600;
+		@include adaptive(mobile) {
+			font-size: rem(25);
+		}
+	}
+
+	&__card-description {
+		flex-grow: 1;
+		font-size: rem(20);
+		line-height: 1.25em;
+		text-align: justify;
+
+		@include adaptive(mobile) {
+			font-size: rem(16);
+		}
+	}
+
+	&__card-image {
+		aspect-ratio: 1;
+		margin: 0 rem(-20) 0;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: scale 0.3s ease-in-out;
+			scale: 1.05;
+		}
+
+		&:hover,
+		&:focus,
+		&:active {
+			img {
+				scale: 1;
+			}
+		}
+	}
+
+	&__card-link {
+		align-self: flex-start;
+		padding: 0 1em;
+		margin-top: rem(5);
+		font-size: rem(20);
+		font-weight: 600;
+		line-height: 2em;
+		color: white;
+		letter-spacing: 0.05em;
+		background-color: cl('primary');
+		border-radius: 1em;
+		@include adaptive(mobile) {
+			font-size: rem(16);
+		}
+	}
+}
+.recipe {
+	background-color: cl('background');
+
+	&__body {
+	}
+
+	&__image {
+		width: 100%;
+		aspect-ratio: 4/1;
+		margin-bottom: rem(50);
+
+		@include adaptive(tablet) {
+			width: 100vw;
+			margin-inline: rem(-15);
+			margin-bottom: rem(40);
+		}
+		@include adaptive(mobile) {
+			aspect-ratio: 1;
+			margin-bottom: rem(25);
+		}
+
+		img,
+		svg,
+		picture {
+			object-fit: cover;
+			height: 100%;
+			object-position: center 45%;
+		}
+	}
+
+	&__title {
+		margin-bottom: rem(50);
+		font-size: rem(45);
+		font-weight: 600;
+		@include adaptive(tablet) {
+			margin-bottom: rem(40);
+		}
+		@include adaptive(mobile) {
+			margin-bottom: rem(25);
+			font-size: rem(25);
+		}
+	}
+
+	&__content {
+		display: flex;
+		gap: rem(50);
+		justify-content: space-between;
+		padding-bottom: rem(100);
+
+		@include adaptive(tablet) {
+			flex-direction: column;
+			gap: rem(40);
+			padding-bottom: rem(75);
+		}
+		@include adaptive(mobile) {
+			gap: rem(25);
+			padding-bottom: rem(50);
+		}
+	}
+
+	&__ingredients-sticky-wrapper {
+		flex-grow: 1;
+	}
+	&__ingredients {
+		position: sticky;
+		top: 2em;
+		display: flex;
+		flex-direction: column;
+		gap: rem(20);
+		@include adaptive(mobile) {
+			gap: rem(10);
+		}
+	}
+
+	&__ingredient {
+		display: flex;
+		gap: 2em;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.5em 1em;
+		font-size: rem(30);
+		background-color: cl('secondary');
+		border-radius: 1em;
+
+		@include adaptive(mobile) {
+			font-size: rem(14);
+		}
+
+		span {
+			flex-shrink: 0;
+			min-width: 3.25em;
+			padding: 0.25em 0.5em;
+			font-size: rem(20);
+			text-align: center;
+			background-color: cl('accent');
+			border-radius: 2em;
+			@include adaptive(mobile) {
+				font-size: rem(12);
+			}
+		}
+	}
+
+	&__article {
+		flex-shrink: 0;
+		font-size: rem(30);
+		text-align: justify;
+		@include adaptive(tabletReset) {
+			flex-basis: 50ch;
+		}
+		@include adaptive(mobile) {
+			font-size: rem(18);
+		}
+
+		p:not(:last-of-type) {
+			margin-bottom: 0.75em;
+		}
+		iframe {
+			width: 100%;
+			height: auto;
+			aspect-ratio: 16 / 9;
+			margin-top: rem(50);
+			@include adaptive(mobile) {
+				margin-top: rem(35);
+			}
+		}
+	}
+}
+.go-back {
+	position: fixed;
+	top: rem(25);
+	left: rem(25);
+	width: rem(50);
+	height: rem(50);
+	padding: rem(10);
+	background-color: cl('secondary');
+	border-radius: 50%;
+	@include adaptive(tablet) {
+		top: rem(15);
+		left: rem(15);
+	}
+}
+//footer --------------------------------------------------
+
+//js swap blocks ------------------------------------------

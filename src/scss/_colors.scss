@@ -1,0 +1,38 @@
+$colors: (
+	default: (
+		text: #000000,
+		background: #f2f2f2,
+		primary: #4785ff,
+		secondary: #ffffff,
+		accent: #ffaf85,
+	),
+	dark: (
+		text: #ffffff,
+		background: #0d0d0d,
+		primary: #003db8,
+		secondary: #000000,
+		accent: #7a2b00,
+	),
+);
+
+:root {
+	@include themeToVars(default);
+
+	@each $theme, $values in $colors {
+		@if $theme == 'dark' {
+			@media (prefers-color-scheme: dark) {
+				@include themeToVars(dark);
+			}
+		}
+	}
+}
+
+//todo поменять класс .theme-dark на :root[data-theme = "light"] как на realtimecolors.com
+//
+//:root {
+//  @include themeToVars(default);
+//
+//  &[data-theme='dark'] {
+//     @include themeToVars(dark);
+// }
+//}

@@ -1,0 +1,14 @@
+{
+	"extends": [
+		"stylelint-config-recommended-scss",
+		"stylelint-config-recess-order"
+	],
+	"rules": {
+		"block-no-empty": null,
+		"number-leading-zero": null,
+		"no-descending-specificity": [
+			true,
+			{ "ignore": ["selectors-within-list"] }
+		]
+	}
+}
