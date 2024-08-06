@@ -29,9 +29,7 @@ html {
 	font-size: calc(100vw / var(--refRes) * 10);
 
 	@media (min-width: 1921px) {
-		font-size: calc(
-			10px + ($ratio * 10) * ((100vw - var(--refRes) * 1px) / var(--refRes))
-		);
+		font-size: calc(10px + ($ratio * 10) * ((100vw - var(--refRes) * 1px) / var(--refRes)));
 	}
 
 	@include adaptive(tablet) {
@@ -265,7 +263,7 @@ main {
 
 	&__ingredient {
 		display: flex;
-		gap: 2em;
+		gap: 1em;
 		align-items: center;
 		justify-content: space-between;
 		padding: 0.5em 1em;
