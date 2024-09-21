@@ -12,6 +12,7 @@
 	"author": "nikitor141",
 	"license": "ISC",
 	"devDependencies": {
+		"@linthtml/linthtml": "^0.9.6",
 		"@trivago/prettier-plugin-sort-imports": "latest",
 		"browser-sync": "latest",
 		"del": "latest",
