@@ -255,14 +255,27 @@ main {
 	&__ingredients-sticky-wrapper {
 		flex-grow: 1;
 	}
-	&__ingredients {
+	&__ingredients-column {
 		position: sticky;
 		top: 2em;
+	}
+	&__ingredients-title {
+		margin-bottom: 1em;
+		font-size: rem(32);
+
+		@include adaptive('mobile') {
+			font-size: rem(18);
+			font-weight: bold;
+		}
+	}
+	&__ingredients {
 		display: flex;
 		flex-direction: column;
 		gap: rem(20);
+		margin-bottom: rem(48);
 		@include adaptive(mobile) {
 			gap: rem(10);
+			margin-bottom: rem(32);
 		}
 	}
 
