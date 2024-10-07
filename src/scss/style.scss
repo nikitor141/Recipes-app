@@ -2,6 +2,8 @@
 @import 'reset';
 @import 'functions';
 @import 'colors';
+@import 'node_modules/swiper/swiper';
+@import 'node_modules/swiper/modules/pagination';
 
 //	snippets -----------------------------------------------
 // fsc - fullscreen;
@@ -23,6 +25,7 @@ video {
 }
 
 html {
+	--swiper-pagination-color: white;
 	--refRes: 1920;
 	$ratio: 0.5;
 	scroll-behavior: smooth;
@@ -253,11 +256,18 @@ main {
 	}
 
 	&__ingredients-sticky-wrapper {
-		flex-grow: 1;
+		flex: 1 0 auto;
 	}
 	&__ingredients-column {
-		position: sticky;
-		top: 2em;
+		@include adaptive('mobileReset') {
+			position: sticky;
+			top: 2em;
+			&.pinned {
+				max-height: 100vh;
+				overflow: auto;
+				scrollbar-width: thin;
+			}
+		}
 	}
 	&__ingredients-title {
 		margin-bottom: 1em;
@@ -308,20 +318,23 @@ main {
 	}
 
 	&__article {
+		display: flex;
+		flex-direction: column;
 		flex-shrink: 0;
+		gap: 0.75em;
+		min-width: 0;
 		font-size: rem(30);
 		line-height: 1.5;
 		text-align: justify;
+
 		@include adaptive(tabletReset) {
 			flex-basis: 50ch;
+			padding-top: rem(64);
 		}
 		@include adaptive(mobile) {
 			font-size: rem(18);
 		}
 
-		p:not(:last-of-type) {
-			margin-bottom: 0.75em;
-		}
 		iframe {
 			width: 100%;
 			height: auto;
@@ -330,6 +343,9 @@ main {
 			@include adaptive(mobile) {
 				margin-top: rem(35);
 			}
+		}
+		.swiper {
+			max-width: 100%;
 		}
 	}
 }

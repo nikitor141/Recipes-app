@@ -1,8 +1,7 @@
+import Swiper from 'swiper'
+import { Pagination } from 'swiper/modules'
+
 import * as webpTest from './modules/iswebp.js'
-
-// import * as test from './modules/test.js'
-
-// test.test()
 
 webpTest.isWebp()
 
@@ -20,21 +19,45 @@ function setTheme(dataTheme) {
 // setTheme(dataTheme)
 // btn.onclick = () => setTheme(dataTheme)
 // //доделать
-// findBanner()
+const sliderOptions = {
+	spaceBetween: 10,
+	modules: [Pagination],
+	pagination: {
+		el: '.swiper-pagination',
+		type: 'bullets',
+		clickable: true
+	}
+}
+const rolling = new Swiper('.rolling', sliderOptions)
 
-// function findBanner() {
-// 	if (
-// 		!document.querySelector(
-// 			'a[href="https://elfsight.com/instagram-feed-instashow/?utm_source=websites&utm_medium=clients&utm_content=instashow&utm_term=localhost&utm_campaign=free-widget"]'
-// 		)
-// 	) {
-// 		setTimeout(() => {
-// 			findBanner()
-// 		}, 300)
-// 	} else {
-// 		document.querySelector(
-// 			'a[href="https://elfsight.com/instagram-feed-instashow/?utm_source=websites&utm_medium=clients&utm_content=instashow&utm_term=localhost&utm_campaign=free-widget"]'
-// 		).style.display = 'none'
-// 	}
-// }
-// console.log()
+const glaze = new Swiper('.glace', sliderOptions)
+
+const mediaQueryTablet = window.matchMedia('(max-width: 1024px)')
+let rem
+function setRem() {
+	rem = +parseFloat(getComputedStyle(document.documentElement).fontSize).toFixed(2)
+}
+
+const stickyElement = document.querySelector('.recipe__ingredients-column')
+
+function sticky() {
+	const stickyElementTop = +stickyElement.getBoundingClientRect().top.toFixed(1)
+	if (stickyElementTop === +(rem * 2.8).toFixed(1)) {
+		stickyElement.classList.add('pinned')
+	} else {
+		stickyElement.classList.remove('pinned')
+	}
+}
+
+setRem()
+if (!mediaQueryTablet.matches) {
+	window.addEventListener('scroll', sticky)
+}
+mediaQueryTablet.addEventListener('change', () => {
+	setRem()
+	if (mediaQueryTablet.matches) {
+		window.removeEventListener('scroll', sticky)
+	} else {
+		window.addEventListener('scroll', sticky)
+	}
+})
