@@ -4,15 +4,17 @@ $colors: (
 		background: #f2f2f2,
 		primary: #4785ff,
 		secondary: #ffffff,
-		accent: #ffaf85,
+		scrollbar: #c7c7c7,
+		accent: #ffaf85
 	),
 	dark: (
 		text: #ffffff,
 		background: #0d0d0d,
 		primary: #003db8,
 		secondary: #000000,
-		accent: #7a2b00,
-	),
+		scrollbar: #6b6b6b,
+		accent: #7a2b00
+	)
 );
 
 :root {

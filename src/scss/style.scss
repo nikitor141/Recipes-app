@@ -76,7 +76,7 @@ body {
 .container {
 	width: 100%;
 	min-width: 320px;
-	max-width: rem(1430); //ширина контентной части
+	max-width: rem(1660); //ширина контентной части
 	padding: 0 rem(15); // плюсуешь 2x padding к контентной части
 	margin: 0 auto;
 }
@@ -256,16 +256,19 @@ main {
 	}
 
 	&__ingredients-sticky-wrapper {
-		flex: 1 0 auto;
+		flex-grow: 0;
 	}
 	&__ingredients-column {
 		@include adaptive('mobileReset') {
 			position: sticky;
 			top: 2em;
+			padding-right: 11px;
 			&.pinned {
 				max-height: 100vh;
+				padding-right: 0;
 				overflow: auto;
 				scrollbar-width: thin;
+				scrollbar-color: cl('scrollbar') transparent;
 			}
 		}
 	}
@@ -320,6 +323,7 @@ main {
 	&__article {
 		display: flex;
 		flex-direction: column;
+		flex-grow: 1;
 		flex-shrink: 0;
 		gap: 0.75em;
 		min-width: 0;
@@ -363,9 +367,6 @@ main {
 		top: rem(15);
 		left: rem(15);
 	}
-}
-.eapps-instagram-feed-title-container {
-	display: none;
 }
 //footer --------------------------------------------------
 
