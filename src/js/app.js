@@ -21,6 +21,7 @@ function setTheme(dataTheme) {
 // //доделать
 const sliderOptions = {
 	spaceBetween: 10,
+	autoHeight: true,
 	modules: [Pagination],
 	pagination: {
 		el: '.swiper-pagination',
@@ -28,9 +29,7 @@ const sliderOptions = {
 		clickable: true
 	}
 }
-const rolling = new Swiper('.rolling', sliderOptions)
-
-const glaze = new Swiper('.glace', sliderOptions)
+new Swiper('.swiper', sliderOptions)
 
 const mediaQueryTablet = window.matchMedia('(max-width: 1024px)')
 let rem
