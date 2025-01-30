@@ -1,19 +1,21 @@
 $colors: (
 	default: (
-		text: #000000,
-		background: #f2f2f2,
-		primary: #4785ff,
-		secondary: #ffffff,
+		text: #131110,
+		background: #f5f2ef,
+		primary: #583a2d,
+		secondary: #d29c89,
 		scrollbar: #c7c7c7,
-		accent: #ffaf85
+		accent: #ffaf85,
+		accent-alt: #b45431
 	),
 	dark: (
-		text: #ffffff,
-		background: #0d0d0d,
-		primary: #003db8,
-		secondary: #000000,
+		text: #efedec,
+		background: #100d0a,
+		primary: #d2b4a7,
+		secondary: #76402d,
 		scrollbar: #6b6b6b,
-		accent: #7a2b00
+		accent: #7a2b00,
+		accent-alt: #ce6e4b
 	)
 );
 

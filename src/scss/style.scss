@@ -44,9 +44,12 @@ html {
 }
 
 body {
-	font-family: 'proximanova', sans-serif;
+	font-family: sans-serif;
 	font-size: rem(14);
 	color: cl('text');
+	*:is(p, h1, h2, h3, li, span, img)::selection {
+		background: cl('secondary');
+	}
 
 	&.active {
 		overflow: hidden;
@@ -118,22 +121,42 @@ main {
 			grid-template-columns: 1fr;
 		}
 	}
-
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: scale 0.3s ease-in-out;
+		scale: 1;
+	}
 	&__card {
 		display: flex;
 		flex-direction: column;
-		gap: rem(15);
-		padding: 0 rem(20) rem(20);
+		height: 100%;
+		padding: 0 rem(30) rem(30);
 		overflow: hidden;
-		background-color: cl('secondary');
+		background-color: cl('primary', 0.05);
 		border-radius: rem(20);
-		box-shadow: 0 0 rem(15) cl('primary', 0.2);
+		box-shadow: 0 0 rem(55) cl('accent', 0.2);
+		&:hover,
+		&:focus,
+		&:active {
+			img {
+				scale: 1.025;
+			}
+		}
+	}
+	&__card-image {
+		aspect-ratio: 1;
+		margin: 0 rem(-30) rem(30);
+		overflow: hidden;
+
 		@include adaptive(mobile) {
-			gap: rem(12);
+			margin-bottom: rem(12);
 		}
 	}
 
 	&__card-title {
+		margin-bottom: rem(20);
 		font-size: rem(32);
 		font-weight: 600;
 		@include adaptive(mobile) {
@@ -143,48 +166,11 @@ main {
 
 	&__card-description {
 		flex-grow: 1;
+		margin-bottom: rem(20);
 		font-size: rem(20);
 		line-height: 1.25em;
 		text-align: justify;
 
-		@include adaptive(mobile) {
-			font-size: rem(16);
-		}
-	}
-
-	&__card-image {
-		aspect-ratio: 1;
-		margin: 0 rem(-20) 0;
-		overflow: hidden;
-
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			transition: scale 0.3s ease-in-out;
-			scale: 1.05;
-		}
-
-		&:hover,
-		&:focus,
-		&:active {
-			img {
-				scale: 1;
-			}
-		}
-	}
-
-	&__card-link {
-		align-self: flex-start;
-		padding: 0 1em;
-		margin-top: rem(5);
-		font-size: rem(20);
-		font-weight: 600;
-		line-height: 2em;
-		color: white;
-		letter-spacing: 0.05em;
-		background-color: cl('primary');
-		border-radius: 1em;
 		@include adaptive(mobile) {
 			font-size: rem(16);
 		}
@@ -256,18 +242,18 @@ main {
 	}
 
 	&__ingredients-sticky-wrapper {
-		flex-grow: 0;
+		flex-grow: 1;
 	}
 	&__ingredients-column {
 		@include adaptive('mobileReset') {
 			position: sticky;
 			top: 2em;
-			padding-right: 11px;
-			&.pinned {
-				max-height: 100vh;
-				padding-right: 0;
-				overflow: auto;
-				scrollbar-width: thin;
+			max-height: 100vh;
+			scrollbar-width: thin;
+			scrollbar-color: transparent transparent;
+			overflow: auto;
+			transition: scrollbar-color 0.3s;
+			&:hover {
 				scrollbar-color: cl('scrollbar') transparent;
 			}
 		}
@@ -299,7 +285,7 @@ main {
 		justify-content: space-between;
 		padding: 0.5em 1em;
 		font-size: rem(30);
-		background-color: cl('secondary');
+		background-color: cl('primary', 0.05);
 		border-radius: 1em;
 
 		@include adaptive(mobile) {
@@ -323,7 +309,7 @@ main {
 	&__article {
 		display: flex;
 		flex-direction: column;
-		flex-grow: 1;
+		flex-grow: 0;
 		flex-shrink: 0;
 		gap: 0.75em;
 		min-width: 0;
@@ -332,7 +318,7 @@ main {
 		text-align: justify;
 
 		@include adaptive(tabletReset) {
-			flex-basis: 50ch;
+			flex-basis: 62ch;
 			padding-top: rem(64);
 		}
 		@include adaptive(mobile) {
@@ -361,7 +347,7 @@ main {
 	width: rem(50);
 	height: rem(50);
 	padding: rem(10);
-	background-color: cl('secondary');
+	background-color: cl('primary', 0.05);
 	border-radius: 50%;
 	@include adaptive(tablet) {
 		top: rem(15);

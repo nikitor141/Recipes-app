@@ -31,7 +31,6 @@ const sliderOptions = {
 }
 new Swiper('.swiper', sliderOptions)
 
-const mediaQueryTablet = window.matchMedia('(max-width: 1024px)')
 let rem
 function setRem() {
 	rem = +parseFloat(getComputedStyle(document.documentElement).fontSize).toFixed(2)
@@ -39,24 +38,4 @@ function setRem() {
 
 const stickyElement = document.querySelector('.recipe__ingredients-column')
 
-function sticky() {
-	const stickyElementTop = +stickyElement.getBoundingClientRect().top.toFixed(1)
-	if (stickyElementTop === +(rem * 2.8).toFixed(1)) {
-		stickyElement.classList.add('pinned')
-	} else {
-		stickyElement.classList.remove('pinned')
-	}
-}
-
 setRem()
-if (!mediaQueryTablet.matches) {
-	window.addEventListener('scroll', sticky)
-}
-mediaQueryTablet.addEventListener('change', () => {
-	setRem()
-	if (mediaQueryTablet.matches) {
-		window.removeEventListener('scroll', sticky)
-	} else {
-		window.addEventListener('scroll', sticky)
-	}
-})
