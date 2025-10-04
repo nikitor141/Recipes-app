@@ -1,6 +1,7 @@
 // @import 'fonts';
 @import 'reset';
 @import 'functions';
+@import 'mixins';
 @import 'colors';
 @import 'node_modules/swiper/swiper';
 @import 'node_modules/swiper/modules/pagination';
@@ -10,7 +11,16 @@
 // brg - burger;
 // brg-2 - burger animated;
 //---------------------------------------------------------
-
+@property --gradient-first-color-opacity {
+	syntax: '<number>';
+	inherits: false;
+	initial-value: 0;
+}
+@property --gradient-second-color-opacity {
+	syntax: '<number>';
+	inherits: false;
+	initial-value: 0;
+}
 //scss  ---------------------------------------------------
 //keyframes -----------------------------------------------
 
@@ -126,33 +136,62 @@ main {
 		height: 100%;
 		object-fit: cover;
 		transition: scale 0.3s ease-in-out;
-		scale: 1;
 	}
+
 	&__card {
-		display: flex;
-		flex-direction: column;
+		display: grid;
+		grid-template-areas: 'stack';
 		height: 100%;
-		padding: 0 rem(30) rem(30);
 		overflow: hidden;
-		background-color: cl('primary', 0.05);
 		border-radius: rem(20);
-		box-shadow: 0 0 rem(55) cl('accent', 0.2);
-		&:hover,
-		&:focus,
-		&:active {
-			img {
-				scale: 1.025;
+		aspect-ratio: 2/3;
+	}
+
+	&__text {
+		--gradient-first-color-opacity: 0;
+		--gradient-second-color-opacity: 0.5;
+		place-self: end;
+		padding: 1em;
+		grid-area: stack;
+		height: max-content;
+		display: grid;
+		background: linear-gradient(
+			cl('background', var(--gradient-first-color-opacity)),
+			cl('background', var(--gradient-second-color-opacity)) 75%
+		);
+		grid-template-rows: auto 0fr;
+		transition:
+			--gradient-first-color-opacity 0.3s,
+			--gradient-second-color-opacity 0.3s,
+			grid-template-rows 0.3s,
+			background 0.3s,
+			backdrop-filter 0.3s,
+			box-shadow 0.3s;
+		border-radius: 1em 1em 0 0;
+
+		:hover > &,
+		:active > &,
+		:focus > & {
+			--gradient-first-color-opacity: 0.1;
+			--gradient-second-color-opacity: 0.6;
+			backdrop-filter: blur(rem(2));
+			box-shadow: rem(0) rem(1) 0 rem(0) cl('text', 0.2) inset;
+			grid-template-rows: auto 1fr;
+		}
+		.recipes__card--expanded > & {
+			@include adaptive('tablet') {
+				--gradient-first-color-opacity: 0.1;
+				--gradient-second-color-opacity: 0.6;
+				backdrop-filter: blur(rem(2));
+				box-shadow: rem(0) rem(1) 0 rem(0) cl('text', 0.2) inset;
+				grid-template-rows: auto 1fr;
 			}
 		}
 	}
-	&__card-image {
-		aspect-ratio: 1;
-		margin: 0 rem(-30) rem(30);
-		overflow: hidden;
 
-		@include adaptive(mobile) {
-			margin-bottom: rem(12);
-		}
+	&__card-image {
+		grid-area: stack;
+		overflow: hidden;
 	}
 
 	&__card-title {
@@ -165,11 +204,11 @@ main {
 	}
 
 	&__card-description {
-		flex-grow: 1;
 		margin-bottom: rem(20);
 		font-size: rem(20);
 		line-height: 1.25em;
 		text-align: justify;
+		overflow: hidden;
 
 		@include adaptive(mobile) {
 			font-size: rem(16);
@@ -279,6 +318,7 @@ main {
 	}
 
 	&__ingredient {
+		@include gradient-border;
 		display: flex;
 		gap: 1em;
 		align-items: center;
@@ -286,6 +326,7 @@ main {
 		padding: 0.5em 1em;
 		font-size: rem(30);
 		background-color: cl('primary', 0.05);
+		backdrop-filter: blur(rem(5));
 		border-radius: 1em;
 
 		@include adaptive(mobile) {
@@ -339,7 +380,8 @@ main {
 		}
 	}
 }
-.go-back {
+.go-home {
+	@include gradient-border;
 	position: fixed;
 	top: rem(25);
 	left: rem(25);
@@ -348,7 +390,9 @@ main {
 	height: rem(50);
 	padding: rem(10);
 	background-color: cl('primary', 0.05);
+	backdrop-filter: blur(rem(5));
 	border-radius: 50%;
+
 	@include adaptive(tablet) {
 		top: rem(15);
 		left: rem(15);

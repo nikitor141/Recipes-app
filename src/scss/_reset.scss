@@ -37,6 +37,7 @@ body {
 	font-size: 100%;
 	line-height: 1;
 	font-size: 14px;
+	scrollbar-gutter: stable;
 	-ms-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
@@ -87,7 +88,10 @@ ul li {
 }
 
 img {
-	vertical-align: top;
+	vertical-align: middle;
+	font-style: italic;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 h1,
@@ -98,6 +102,10 @@ h5,
 h6 {
 	font-size: inherit;
 	font-weight: inherit;
+	text-wrap: balance;
+}
+p {
+	text-wrap: pretty;
 }
 
 /*--------------------*/

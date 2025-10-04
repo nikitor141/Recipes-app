@@ -26,6 +26,7 @@ body {
   font-size: 100%;
   line-height: 1;
   font-size: 14px;
+  scrollbar-gutter: stable;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -76,7 +77,10 @@ ul li {
 }
 
 img {
-  vertical-align: top;
+  vertical-align: middle;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 h1,
@@ -87,6 +91,11 @@ h5,
 h6 {
   font-size: inherit;
   font-weight: inherit;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 /*--------------------*/
@@ -663,6 +672,16 @@ button.swiper-pagination-bullet {
   display: none;
 }
 
+@property --gradient-first-color-opacity {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --gradient-second-color-opacity {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
 img,
 svg,
 video {
@@ -784,36 +803,66 @@ main {
   -webkit-transition: scale 0.3s ease-in-out;
   -o-transition: scale 0.3s ease-in-out;
   transition: scale 0.3s ease-in-out;
-  scale: 1;
 }
 .recipes__card {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "stack";
   height: 100%;
-  padding: 0 3rem 3rem;
   overflow: hidden;
-  background-color: rgba(var(--color-primary--rgb), 0.05);
   border-radius: 2rem;
-  -webkit-box-shadow: 0 0 5.5rem rgba(var(--color-accent--rgb), 0.2);
-          box-shadow: 0 0 5.5rem rgba(var(--color-accent--rgb), 0.2);
+  aspect-ratio: 2/3;
 }
-.recipes__card:hover img, .recipes__card:focus img, .recipes__card:active img {
-  scale: 1.025;
+.recipes__text {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  --gradient-first-color-opacity: 0;
+  --gradient-second-color-opacity: 0.5;
+  -ms-grid-row-align: end;
+  -ms-grid-column-align: end;
+  place-self: end;
+  padding: 1em;
+  grid-area: stack;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: -ms-grid;
+  display: grid;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(var(--color-background--rgb), var(--gradient-first-color-opacity))), color-stop(75%, rgba(var(--color-background--rgb), var(--gradient-second-color-opacity))));
+  background: -o-linear-gradient(rgba(var(--color-background--rgb), var(--gradient-first-color-opacity)), rgba(var(--color-background--rgb), var(--gradient-second-color-opacity)) 75%);
+  background: linear-gradient(rgba(var(--color-background--rgb), var(--gradient-first-color-opacity)), rgba(var(--color-background--rgb), var(--gradient-second-color-opacity)) 75%);
+  -ms-grid-rows: auto 0fr;
+  grid-template-rows: auto 0fr;
+  transition: --gradient-first-color-opacity 0.3s, --gradient-second-color-opacity 0.3s, grid-template-rows 0.3s, background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+  border-radius: 1em 1em 0 0;
+}
+:hover > .recipes__text, :active > .recipes__text, :focus > .recipes__text {
+  --gradient-first-color-opacity: 0.1;
+  --gradient-second-color-opacity: 0.6;
+  -webkit-backdrop-filter: blur(0.2rem);
+          backdrop-filter: blur(0.2rem);
+  -webkit-box-shadow: 0rem 0.1rem 0 0rem rgba(var(--color-text--rgb), 0.2) inset;
+          box-shadow: 0rem 0.1rem 0 0rem rgba(var(--color-text--rgb), 0.2) inset;
+  -ms-grid-rows: auto 1fr;
+  grid-template-rows: auto 1fr;
+}
+@media (max-width: 1024px) {
+  .recipes__card--expanded > .recipes__text {
+    --gradient-first-color-opacity: 0.1;
+    --gradient-second-color-opacity: 0.6;
+    -webkit-backdrop-filter: blur(0.2rem);
+            backdrop-filter: blur(0.2rem);
+    -webkit-box-shadow: 0rem 0.1rem 0 0rem rgba(var(--color-text--rgb), 0.2) inset;
+            box-shadow: 0rem 0.1rem 0 0rem rgba(var(--color-text--rgb), 0.2) inset;
+    -ms-grid-rows: auto 1fr;
+    grid-template-rows: auto 1fr;
+  }
 }
 .recipes__card-image {
-  aspect-ratio: 1;
-  margin: 0 -3rem 3rem;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: stack;
   overflow: hidden;
-}
-@media (max-width: 530px) {
-  .recipes__card-image {
-    margin-bottom: 1.2rem;
-  }
 }
 .recipes__card-title {
   margin-bottom: 2rem;
@@ -826,13 +875,11 @@ main {
   }
 }
 .recipes__card-description {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
   margin-bottom: 2rem;
   font-size: 2rem;
   line-height: 1.25em;
   text-align: justify;
+  overflow: hidden;
 }
 @media (max-width: 530px) {
   .recipes__card-description {
@@ -968,6 +1015,9 @@ main {
   }
 }
 .recipe__ingredient {
+  position: relative;
+  -webkit-box-shadow: 0.3rem 0.1rem 0 -0.2rem rgba(var(--color-text--rgb), 0.3) inset, -0.4rem -0.1rem 0 -0.3rem rgba(var(--color-text--rgb), 0.3) inset;
+          box-shadow: 0.3rem 0.1rem 0 -0.2rem rgba(var(--color-text--rgb), 0.3) inset, -0.4rem -0.1rem 0 -0.3rem rgba(var(--color-text--rgb), 0.3) inset;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -981,7 +1031,24 @@ main {
   padding: 0.5em 1em;
   font-size: 3rem;
   background-color: rgba(var(--color-primary--rgb), 0.05);
+  -webkit-backdrop-filter: blur(0.5rem);
+          backdrop-filter: blur(0.5rem);
   border-radius: 1em;
+}
+.recipe__ingredient::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  border-radius: inherit;
+  inset: 0;
+  border: 0.2rem solid transparent;
+  background: conic-gradient(rgba(var(--color-background--rgb), 0.5) 0%, rgba(var(--color-text--rgb), 0.2) 40%, rgba(var(--color-background--rgb), 0.5) 60%, rgba(var(--color-text--rgb), 0.2) 80%, rgba(var(--color-background--rgb), 0.5) 100%) border-box;
+  -webkit-mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, black)) border-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, black)) padding-box;
+  -webkit-mask: linear-gradient(black 0 0) border-box, linear-gradient(black 0 0) padding-box;
+          mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, black)) border-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, black)) padding-box;
+          mask: linear-gradient(black 0 0) border-box, linear-gradient(black 0 0) padding-box;
+  -webkit-mask-composite: source-out;
+          mask-composite: subtract;
 }
 @media (max-width: 530px) {
   .recipe__ingredient {
@@ -1049,7 +1116,10 @@ main {
   max-width: 100%;
 }
 
-.go-back {
+.go-home {
+  position: relative;
+  -webkit-box-shadow: 0.3rem 0.1rem 0 -0.2rem rgba(var(--color-text--rgb), 0.3) inset, -0.4rem -0.1rem 0 -0.3rem rgba(var(--color-text--rgb), 0.3) inset;
+          box-shadow: 0.3rem 0.1rem 0 -0.2rem rgba(var(--color-text--rgb), 0.3) inset, -0.4rem -0.1rem 0 -0.3rem rgba(var(--color-text--rgb), 0.3) inset;
   position: fixed;
   top: 2.5rem;
   left: 2.5rem;
@@ -1058,10 +1128,27 @@ main {
   height: 5rem;
   padding: 1rem;
   background-color: rgba(var(--color-primary--rgb), 0.05);
+  -webkit-backdrop-filter: blur(0.5rem);
+          backdrop-filter: blur(0.5rem);
   border-radius: 50%;
 }
+.go-home::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  border-radius: inherit;
+  inset: 0;
+  border: 0.2rem solid transparent;
+  background: conic-gradient(rgba(var(--color-background--rgb), 0.5) 0%, rgba(var(--color-text--rgb), 0.2) 40%, rgba(var(--color-background--rgb), 0.5) 60%, rgba(var(--color-text--rgb), 0.2) 80%, rgba(var(--color-background--rgb), 0.5) 100%) border-box;
+  -webkit-mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, black)) border-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, black)) padding-box;
+  -webkit-mask: linear-gradient(black 0 0) border-box, linear-gradient(black 0 0) padding-box;
+          mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, black)) border-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, black)) padding-box;
+          mask: linear-gradient(black 0 0) border-box, linear-gradient(black 0 0) padding-box;
+  -webkit-mask-composite: source-out;
+          mask-composite: subtract;
+}
 @media (max-width: 1024px) {
-  .go-back {
+  .go-home {
     top: 1.5rem;
     left: 1.5rem;
   }

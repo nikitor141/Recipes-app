@@ -1,0 +1,27 @@
+@mixin gradient-border {
+	position: relative;
+	box-shadow:
+		rem(3) rem(1) 0 rem(-2) cl('text', 0.3) inset,
+		rem(-4) rem(-1) 0 rem(-3) cl('text', 0.3) inset;
+	&::before {
+		content: '';
+		z-index: -1;
+		position: absolute;
+		border-radius: inherit;
+		inset: 0;
+		border: rem(2) solid transparent;
+
+		background: conic-gradient(
+				cl('background', 0.5) 0%,
+				cl('text', 0.2) 40%,
+				cl('background', 0.5) 60%,
+				cl('text', 0.2) 80%,
+				cl('background', 0.5) 100%
+			)
+			border-box;
+		mask:
+			linear-gradient(black 0 0) border-box,
+			linear-gradient(black 0 0) padding-box;
+		mask-composite: subtract;
+	}
+}
