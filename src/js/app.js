@@ -42,14 +42,13 @@ const stickyElement = document.querySelector(".recipe__ingredients-column");
 
 setRem();
 
-const center = { x: window.innerWidth / 2, y: window.innerHeight / 4 };
-let lastElement;
-window.onscroll = (e) => {
-	const element = document
-		.elementFromPoint(center.x, center.y)
-		?.closest(".recipes__card");
-	if (!element) return lastElement?.classList.remove("recipes__card--expanded");
+let lastCard = null;
+document.addEventListener("click", (e) => {
+	const card = e.target.closest(".recipes__card");
+	if (!card) return;
 
-	element.classList.add("recipes__card--expanded");
-	lastElement = element;
-};
+	if (lastCard !== card && card !== document.activeElement) e.preventDefault();
+	lastCard?.classList.remove("recipes__card--expanded");
+	card.classList.add("recipes__card--expanded");
+	lastCard = card;
+});

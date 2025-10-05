@@ -92,6 +92,10 @@ body {
 	max-width: rem(1660); //ширина контентной части
 	padding: 0 rem(15); // плюсуешь 2x padding к контентной части
 	margin: 0 auto;
+
+	@include adaptive('mobile') {
+		padding-inline: rem(5);
+	}
 }
 
 //bem blocks ----------------------------------------------
@@ -128,7 +132,7 @@ main {
 			gap: rem(30);
 		}
 		@include adaptive(mobile) {
-			grid-template-columns: 1fr;
+			gap: rem(15);
 		}
 	}
 	img {
@@ -144,7 +148,8 @@ main {
 		height: 100%;
 		overflow: hidden;
 		border-radius: rem(20);
-		aspect-ratio: 2/3;
+		/* aspect-ratio: 2/3; */
+		min-block-size: max-content;
 	}
 
 	&__text {
@@ -168,6 +173,11 @@ main {
 			backdrop-filter 0.3s,
 			box-shadow 0.3s;
 		border-radius: 1em 1em 0 0;
+
+		@include adaptive('mobile') {
+			margin-top: 1rem;
+			padding: 0.5em;
+		}
 
 		:hover > &,
 		:active > &,
@@ -195,11 +205,11 @@ main {
 	}
 
 	&__card-title {
-		margin-bottom: rem(20);
+		margin-bottom: 0.75em;
 		font-size: rem(32);
 		font-weight: 600;
 		@include adaptive(mobile) {
-			font-size: rem(25);
+			font-size: rem(16);
 		}
 	}
 
@@ -207,11 +217,12 @@ main {
 		margin-bottom: rem(20);
 		font-size: rem(20);
 		line-height: 1.25em;
-		text-align: justify;
+		/* text-align: justify; */
 		overflow: hidden;
 
 		@include adaptive(mobile) {
-			font-size: rem(16);
+			font-size: rem(10);
+			margin-bottom: 1em;
 		}
 	}
 }
