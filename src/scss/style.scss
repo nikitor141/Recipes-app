@@ -155,7 +155,7 @@ main {
 	&__text {
 		--gradient-first-color-opacity: 0;
 		--gradient-second-color-opacity: 0.5;
-		place-self: end;
+		place-self: end stretch;
 		padding: 1em;
 		grid-area: stack;
 		height: max-content;
