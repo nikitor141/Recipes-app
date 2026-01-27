@@ -377,6 +377,18 @@ main {
 			font-size: rem(18);
 		}
 
+		p {
+			span[n] {
+				color: cl('background');
+				background: cl('text');
+				font-size: rem(22);
+
+				@include adaptive(mobile) {
+					font-size: rem(12);
+				}
+			}
+		}
+
 		iframe {
 			width: 100%;
 			height: auto;
